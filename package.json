@@ -1,0 +1,23 @@
+{
+  "name": "ssj3store",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npx tsc && node dist/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TheWisePigeon/ssj3Store.git"
+  },
+  "author": "TheWisePigeon",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TheWisePigeon/ssj3Store/issues"
+  },
+  "homepage": "https://github.com/TheWisePigeon/ssj3Store#readme",
+  "dependencies": {
+    "typescript": "^4.8.3"
+  }
+}
