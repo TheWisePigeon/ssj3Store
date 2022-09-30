@@ -19,12 +19,15 @@
   "homepage": "https://github.com/TheWisePigeon/ssj3Store#readme",
   "dependencies": {
     "concurrently": "^7.4.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
     "express": "^4.18.1",
     "mongoose": "^6.6.2",
     "nodemon": "^2.0.19",
     "typescript": "^4.8.3"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.12",
     "@types/express": "^4.17.13"
   }
 }
