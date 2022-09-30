@@ -50,6 +50,15 @@ app.post('/login', async (req: Request, res: Response) => {
 })
 
 
+
+
+
+
+
+
+
+
+
 app.listen(3000, async () => {
     await connectToDB()
     console.log('App listening on port 3000');
