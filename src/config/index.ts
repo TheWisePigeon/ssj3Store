@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const connectToDB = async () => {
-    const uri = "mongodb://localhost:27017"
+    const uri = "mongodb://localhost:27017/storeal"
     mongoose.connect(
         uri, (err)=>{
             if(err){
