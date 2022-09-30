@@ -49,7 +49,9 @@ app.post('/login', async (req: Request, res: Response) => {
     })
 })
 
-
+app.post('/store/create', async (req:Request, res: Response) => {
+    
+})
 
 
 
