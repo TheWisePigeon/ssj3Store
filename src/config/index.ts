@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const connectToDB = async () => {
-    const uri =  process.env.DB_URL || "mongodb://localhost:27017/storeal"
+    const uri =  "mongodb+srv://admin:admin@storeal.j9wlyjg.mongodb.net/?retryWrites=true&w=majority"
     mongoose.connect(
         uri, (err)=>{
             if(err){
