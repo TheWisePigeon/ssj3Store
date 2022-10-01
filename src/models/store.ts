@@ -1,9 +1,10 @@
 import mongoose from "mongoose";
 
 const storeSchema = new mongoose.Schema({
+    name: String,
     owner: String,
     isMain: Boolean,
-    manager: String
+    description: String
 })
 
 const Store = mongoose.model("Store", storeSchema)

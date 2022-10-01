@@ -3,7 +3,7 @@ import bodyParser from "body-parser";
 import cors from "cors"
 import dotenv from "dotenv"
 import { User, Store, Product } from "./models"
-import { hashPassword, passwordIsValid } from "./utils"
+import { hashPassword, passwordIsValid, userIsAuthenticated } from "./utils"
 dotenv.config()
 import { connectToDB } from "./config";
 const app = express()
@@ -49,11 +49,90 @@ app.post('/login', async (req: Request, res: Response) => {
     })
 })
 
-app.post('/store/create', async (req:Request, res: Response) => {
-    
+app.post('/store/create', async (req: Request, res: Response) => {
+    if (!userIsAuthenticated(req.body)) {
+        return res.status(401).send({
+            "message": "User not authenticated"
+        })
+    }
+    const { name, auth_id, isMain, description } = req.body
+
+    const newStore = new Store({ name, owner: auth_id, isMain, description })
+
+    newStore.save((err, result) => {
+        if (err) {
+            return res.status(500).send({
+                "message": `Something went wrong ${err.message}`
+            })
+        }
+        return res.status(200).send({
+            "message": "Store created",
+            "data": result
+        })
+
+    })
 })
 
+app.get('/user/stores', async (req: Request, res: Response) => {
+    if (!userIsAuthenticated(req.body)) {
+        return res.status(401).send({
+            "message": "User not authenticated"
+        })
+    }
+    try {
+        const userStores = await Store.find({
+            owner: req.body.auth_id
+        })
+        return res.status(200).send({
+            "message": "user stores fetched",
+            "data": userStores
+        })
+    } catch (error) {
+        return res.status(500).send({
+            "message": "Something went wrong"
+        })
+    }
 
+})
+
+app.get('/stores', async (_req: Request, res: Response) => {
+    Store.find((err, result) => {
+        if (err) {
+            return res.status(500).send({
+                "message": `Something went wrong ${err.message}`
+            })
+        }
+        return res.status(200).send({
+            "message": "Stores fetched",
+            "data": result
+        })
+    })
+})
+
+app.post('/store/info', async (req: Request, res: Response) => {
+    if (!userIsAuthenticated(req.body)) {
+        return res.status(401).send({
+            "message": "User not authenticated"
+        })
+    }
+    try {
+        const { storeId } = req.body
+        const storeInfo = await Store.findById(storeId)
+        if (!storeInfo) {
+            return res.status(404).send({
+                "message": "Store not found"
+            })
+        }
+        return res.status(200).send({
+            "message": "Store informations fetched",
+            "data": storeInfo
+        })
+    } catch (error) {
+        return res.status(500).send({
+            "message": `Something went wrong ${error}`
+        })
+    }
+})
 
 
 
